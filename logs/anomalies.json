@@ -1,0 +1,22 @@
+[
+    {
+        "timestamp": "2025-04-03 00:43:04",
+        "source_ip": "192.168.1.21",
+        "threat": "Anomalous Network Activity"
+    },
+    {
+        "timestamp": "2025-04-03 00:43:04",
+        "source_ip": "192.168.1.21",
+        "threat": "Anomalous Network Activity"
+    },
+    {
+        "timestamp": "2025-04-03 00:43:04",
+        "source_ip": "192.168.1.21",
+        "threat": "Anomalous Network Activity"
+    },
+    {
+        "timestamp": "2025-04-03 00:43:04",
+        "source_ip": "20.42.73.24",
+        "threat": "Anomalous Network Activity"
+    }
+]

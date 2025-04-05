@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDS Dashboard - Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h4 class="text-center text-white">IDS Dashboard</h4>
+        <a href="/">Home</a>
+        <a href="/logs">Logs</a>
+        <a href="/anomalies">Anomalies</a>
+        <a href="/settings">Settings</a>
+    </div>
+    
+    <div class="content">
+        <h2>Settings</h2>
+        <p>Configure IDS settings and manage the system.</p>
+
+        <!-- Turn Off IDS Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Turn Off IDS
+            </div>
+            <div class="card-body">
+                <p>Turn off the IDS system. This requires admin credentials.</p>
+                <form id="turnOffForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Turn Off IDS</button>
+                </form>
+                <div id="turnOffMessage" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission for turning off IDS
+        document.getElementById("turnOffForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            fetch("/api/turn_off_ids", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const messageDiv = document.getElementById("turnOffMessage");
+                    if (data.success) {
+                        messageDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                    } else {
+                        messageDiv.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("turnOffMessage").innerHTML = `<div class="alert alert-danger">An error occurred. Please try again.</div>`;
+                });
+        });
+    </script>
+</body>
+</html>
